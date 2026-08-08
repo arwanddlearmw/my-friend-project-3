@@ -1,7 +1,3 @@
-from pathlib import Path
-
-css = r'''/* Gemini Spec Analyzer */
-
 * {
     box-sizing: border-box;
 }
@@ -37,7 +33,6 @@ body {
 .header h1 {
     margin: 0 0 7px;
     font-size: 30px;
-    letter-spacing: -0.5px;
 }
 
 .header p {
@@ -55,7 +50,6 @@ textarea {
     background: #171a23;
     color: #e8eaf0;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 select {
@@ -80,10 +74,10 @@ select:focus,
 input:focus,
 textarea:focus {
     border-color: #7185ff;
-    box-shadow: 0 0 0 3px rgba(113, 133, 255, 0.12);
 }
 
-.card {
+.card,
+.analysis-card {
     margin-bottom: 18px;
     padding: 22px;
     border: 1px solid #292e3b;
@@ -91,7 +85,8 @@ textarea:focus {
     background: rgba(22, 25, 34, 0.92);
 }
 
-.card h2 {
+.card h2,
+.results-section h2 {
     margin: 0 0 18px;
     font-size: 18px;
 }
@@ -102,25 +97,25 @@ textarea:focus {
     gap: 12px;
 }
 
+.device-button,
+.ask-button,
+.clear-button {
+    border-radius: 11px;
+    font: inherit;
+    cursor: pointer;
+}
+
 .device-button {
     padding: 14px;
     border: 1px solid #303646;
-    border-radius: 11px;
     background: #171a23;
     color: #b7bdca;
-    font: inherit;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.device-button:hover {
-    border-color: #59647d;
 }
 
 .device-button.active {
     border-color: #7185ff;
     background: #202743;
-    color: #ffffff;
+    color: white;
 }
 
 .specs-grid {
@@ -141,31 +136,75 @@ textarea:focus {
     margin-top: 15px;
     padding: 13px 18px;
     border: 0;
-    border-radius: 11px;
     background: #586ee8;
     color: white;
-    font: inherit;
     font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
 }
 
-.ask-button:hover {
-    background: #667cf0;
+.ask-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }
 
-.ask-button:active {
-    transform: translateY(1px);
+.results-section {
+    margin-top: 28px;
 }
 
-.result {
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clear-button {
+    padding: 8px 14px;
+    border: 1px solid #303646;
+    background: #171a23;
+    color: #b7bdca;
+}
+
+.analysis-card {
     border-color: #35405e;
 }
 
-#result {
-    white-space: pre-wrap;
-    line-height: 1.7;
+.analysis-card h3 {
+    margin: 0 0 16px;
+}
+
+.analysis-score {
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.score-number {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.score-label {
+    color: #9ba3b4;
+    font-size: 13px;
+}
+
+.analysis-rating {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.analysis-text {
     color: #d9deea;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.analysis-question {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: #171a23;
+    color: #9ba3b4;
+    font-size: 13px;
 }
 
 .hidden {
@@ -183,22 +222,13 @@ textarea:focus {
         flex-direction: column;
     }
 
-    .header h1 {
-        font-size: 25px;
-    }
-
     .device-selector,
     .specs-grid {
         grid-template-columns: 1fr;
     }
 
-    .card {
+    .card,
+    .analysis-card {
         padding: 17px;
     }
 }
-'''
-
-path = Path("/mnt/data/style.css")
-path.write_text(css, encoding="utf-8")
-
-print(f"Created: {path}")
