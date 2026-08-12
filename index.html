@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Specs Evaluator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1 id="appTitle">مقيّم مواصفات الأجهزة</h1>
+        <p id="appSubtitle">حلّل مواصفات الكمبيوتر واللابتوب والهاتف بسهولة</p>
+      </div>
+      <div class="top-actions">
+        <button class="ghost" id="languageBtn">English</button>
+        <button class="ghost" id="aboutBtn">حول البرنامج</button>
+      </div>
+    </header>
+
+    <section id="welcomeScreen" class="screen">
+      <div class="hero card">
+        <div class="icon">⚙️</div>
+        <h2 id="welcomeTitle">أهلاً بك 👾</h2>
+        <p id="welcomeText">أدخل مواصفات جهازك للحصول على تقييم سريع ومفهوم.</p>
+        <button class="primary big" id="startBtn">ابدأ</button>
+      </div>
+    </section>
+
+    <section id="inputScreen" class="screen hidden">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <h2 id="inputTitle">مواصفات الجهاز</h2>
+            <p id="inputHint">اختر نوع الجهاز ثم أدخل المواصفات.</p>
+          </div>
+          <button class="ghost" id="backWelcomeBtn">رجوع</button>
+        </div>
+
+        <div class="device-tabs">
+          <button data-device="PC" class="device-tab active">🖥️ PC</button>
+          <button data-device="LAPTOP" class="device-tab">💻 Laptop</button>
+          <button data-device="PHONE" class="device-tab">📱 Phone</button>
+        </div>
+
+        <form id="specForm">
+          <div id="computerFields" class="fields">
+            <label>CPU<input id="cpu" placeholder="مثال: Core i5-12400F"></label>
+            <label>GPU<input id="gpu" placeholder="مثال: RTX 4060"></label>
+            <label>RAM<input id="ram" placeholder="مثال: 16 GB"></label>
+            <label>Storage<input id="storage" placeholder="مثال: 1 TB NVMe SSD"></label>
+            <label>PSU / Battery<input id="psuOrBattery" placeholder="مثال: 650W"></label>
+          </div>
+
+          <div id="phoneFields" class="fields hidden">
+            <label>Screen<input id="phoneScreen" placeholder="مثال: 6.7 AMOLED 120Hz"></label>
+            <label>CPU<input id="phoneCpu" placeholder="مثال: Snapdragon 8 Gen 3"></label>
+            <label>OS<input id="phoneOs" placeholder="مثال: Android 15"></label>
+            <label>RAM<input id="phoneRam" placeholder="مثال: 12 GB"></label>
+            <label>Storage<input id="phoneStorage" placeholder="مثال: 256 GB"></label>
+            <label>Cameras<input id="phoneCameras" placeholder="مثال: 50MP + 12MP"></label>
+            <label>Battery<input id="phoneBattery" placeholder="مثال: 5000 mAh"></label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="ghost" id="presetBtn">تعبئة مثال</button>
+            <button type="button" class="danger ghost" id="clearBtn">مسح</button>
+            <button type="submit" class="primary">تقييم المواصفات</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen hidden">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <h2 id="resultTitle">نتيجة التقييم</h2>
+            <p id="resultSubtitle">تحليل مبني على المواصفات التي أدخلتها.</p>
+          </div>
+          <button class="ghost" id="editBtn">تعديل</button>
+        </div>
+
+        <div class="score-box">
+          <div class="score" id="score">0</div>
+          <div>
+            <strong id="grade">—</strong>
+            <p id="summary">—</p>
+          </div>
+        </div>
+
+        <div id="details" class="details"></div>
+
+        <div class="result-actions">
+          <button class="primary" id="saveBtn">حفظ الجهاز</button>
+          <button class="ghost" id="historyBtn">السجل</button>
+          <button class="ghost" id="aiBtn">تحليل AI</button>
+        </div>
+
+        <div id="aiBox" class="ai-box hidden">
+          <h3>🤖 AI</h3>
+          <p id="aiText"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="historyScreen" class="screen hidden">
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <h2>الأجهزة المحفوظة</h2>
+            <p>يمكنك تحميل أي مواصفات محفوظة.</p>
+          </div>
+          <button class="ghost" id="backResultBtn">رجوع</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="aboutDialog">
+    <div class="dialog-content">
+      <h2>ℹ️ حول البرنامج</h2>
+      <p>هذا إصدار ويب من فكرة PC Specs Evaluator. يتيح لك إدخال مواصفات PC أو Laptop أو Phone والحصول على تقييم سريع وحفظ النتائج في المتصفح.</p>
+      <button class="primary" id="closeAboutBtn">إغلاق</button>
+    </div>
+  </dialog>
+
+  <dialog id="aiDialog">
+    <div class="dialog-content">
+      <h2>🤖 تحليل AI</h2>
+      <p>التحليل الحالي محلي ولا يحتاج إلى API Key. إذا أردت ربط Gemini فعلياً، يجب إضافة Backend حتى لا يتم كشف مفتاح API داخل المتصفح.</p>
+      <button class="primary" id="closeAiBtn">حسناً</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
